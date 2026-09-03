@@ -1,203 +1,216 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mosha Smart AI</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  <title>Gemini AI Assistant</title>
 
-        .chat-container {
-            width: 100%;
-            max-width: 800px;
-            height: 90vh;
-            background: #1e293b;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            overflow: hidden;
-            border: 1px solid #334155;
-        }
+  <meta
+    name="description"
+    content="Modern Gemini AI chatbot"
+  >
 
-        .chat-header {
-            padding: 20px;
-            background: #0f172a;
-            text-align: center;
-            border-bottom: 1px solid #334155;
-        }
+  <link rel="stylesheet" href="style.css">
 
-        .chat-header h2 {
-            font-size: 1.4rem;
-            color: #38bdf8;
-        }
-
-        .chat-box {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .message {
-            max-width: 80%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            line-height: 1.5;
-            font-size: 0.95rem;
-            word-wrap: break-word;
-        }
-
-        .user-message {
-            align-self: flex-end;
-            background-color: #0284c7;
-            color: #ffffff;
-            border-bottom-right-radius: 2px;
-        }
-
-        .ai-message {
-            align-self: flex-start;
-            background-color: #334155;
-            color: #f8fafc;
-            border-bottom-left-radius: 2px;
-        }
-
-        .input-container {
-            padding: 15px;
-            background: #0f172a;
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid #334155;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            color: #ffffff;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        input[type="text"]:focus {
-            border-color: #38bdf8;
-        }
-
-        button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            background: #0284c7;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        button:hover {
-            background: #0369a1;
-        }
-
-        button:disabled {
-            background: #475569;
-            cursor: not-allowed;
-        }
-    </style>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
 </head>
+
 <body>
 
-<div class="chat-container">
-    <div class="chat-header">
-        <h2>Mosha AI Assistant</h2>
+<div class="app">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+      <div class="brand-logo">
+        <i class="fa-solid fa-sparkles"></i>
+      </div>
+
+      <div>
+        <h2>Gemini AI</h2>
+        <span>AI Assistant</span>
+      </div>
+
     </div>
-    
-    <div class="chat-box" id="chatBox">
-        <div class="message ai-message">Habari! Mimi ni AI wako. Ninaweza kukusaidia vipi leo?</div>
+
+    <button class="new-chat" id="newChat">
+      <i class="fa-solid fa-plus"></i>
+      New Chat
+    </button>
+
+    <div class="section-title">
+      Recent Chats
     </div>
-    
-    <div class="input-container">
-        <input type="text" id="userInput" placeholder="Andika ujumbe wako hapa..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()" id="sendBtn">Tuma</button>
+
+    <div id="history" class="history"></div>
+
+    <div class="sidebar-footer">
+
+      <button id="themeBtn" class="side-button">
+        <i class="fa-solid fa-moon"></i>
+        <span>Dark Mode</span>
+      </button>
+
+      <button id="clearBtn" class="side-button danger">
+        <i class="fa-solid fa-trash"></i>
+        <span>Clear History</span>
+      </button>
+
     </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <button id="menuBtn" class="menu-button">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="mobile-brand">
+        <i class="fa-solid fa-sparkles"></i>
+        Gemini AI
+      </div>
+
+      <div class="online">
+        <span></span>
+        Online
+      </div>
+
+    </header>
+
+
+    <!-- CHAT AREA -->
+
+    <section class="chat-area" id="chatArea">
+
+      <div class="welcome" id="welcome">
+
+        <div class="big-logo">
+          <i class="fa-solid fa-sparkles"></i>
+        </div>
+
+        <h1>
+          Karibu kwenye Gemini AI
+        </h1>
+
+        <p>
+          Mimi ni AI Assistant wako.
+          Uliza swali lolote na nitakusaidia.
+        </p>
+
+
+        <div class="suggestions">
+
+          <button
+            class="suggestion"
+            data-text="Nisaidie kujifunza Python kuanzia mwanzo"
+          >
+            <i class="fa-solid fa-code"></i>
+
+            <div>
+              <strong>Learn Programming</strong>
+              <small>Nisaidie kujifunza Python</small>
+            </div>
+
+          </button>
+
+
+          <button
+            class="suggestion"
+            data-text="Nielezee computer kwa lugha rahisi"
+          >
+            <i class="fa-solid fa-computer"></i>
+
+            <div>
+              <strong>Computer</strong>
+              <small>Explain computer basics</small>
+            </div>
+
+          </button>
+
+
+          <button
+            class="suggestion"
+            data-text="Nisaidie kuandika business plan nzuri"
+          >
+            <i class="fa-solid fa-briefcase"></i>
+
+            <div>
+              <strong>Business</strong>
+              <small>Nisaidie kupanga biashara</small>
+            </div>
+
+          </button>
+
+
+          <button
+            class="suggestion"
+            data-text="Nipe mawazo ya website ambayo inaweza kuwa useful"
+          >
+            <i class="fa-solid fa-lightbulb"></i>
+
+            <div>
+              <strong>Ideas</strong>
+              <small>Nipe mawazo ya website</small>
+            </div>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div id="messages"></div>
+
+    </section>
+
+
+    <!-- COMPOSER -->
+
+    <footer class="composer">
+
+      <div class="input-container">
+
+        <textarea
+          id="messageInput"
+          placeholder="Uliza Gemini AI..."
+          rows="1"
+        ></textarea>
+
+        <button
+          id="sendBtn"
+          class="send-button"
+          title="Send"
+        >
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+
+      </div>
+
+      <p>
+        Gemini AI inaweza kufanya makosa. Hakikisha taarifa muhimu.
+      </p>
+
+    </footer>
+
+  </main>
+
 </div>
 
-<script>
-    const API_KEY = "API_KEY_YAKO_HAPA"; // Weka Key yako hapa
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-
-    const chatBox = document.getElementById('chatBox');
-    const userInput = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-
-    function appendMessage(text, className) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${className}`;
-        msgDiv.textContent = text;
-        chatBox.appendChild(msgDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        return msgDiv;
-    }
-
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (!text) return;
-
-        appendMessage(text, 'user-message');
-        userInput.value = '';
-        userInput.disabled = true;
-        sendBtn.disabled = true;
-
-        const loadingMsg = appendMessage("Inafikiri...", 'ai-message');
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: text }] }]
-                })
-            });
-
-            const data = await response.json();
-            
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
-                loadingMsg.textContent = data.candidates[0].content.parts[0].text;
-            } else {
-                loadingMsg.textContent = "Samahani, imetokea hitilafu kwenye majibu.";
-            }
-        } catch (error) {
-            loadingMsg.textContent = "Imeshindwa kuunganisha. Angalia mtandao wako au API key.";
-        } finally {
-            userInput.disabled = false;
-            sendBtn.disabled = false;
-            userInput.focus();
-        }
-    }
-
-    function handleKeyPress(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    }
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
